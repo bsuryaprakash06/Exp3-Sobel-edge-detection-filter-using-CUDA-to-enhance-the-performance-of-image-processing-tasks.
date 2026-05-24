@@ -11,16 +11,19 @@
 <h2 align=center>Implement Sobel edge detection filtern using GPU.</h2>
 
 
-# Experiment Details:  
-## AIM:
-  The Sobel operator is a popular edge detection method that computes the gradient of the image intensity at each pixel. It uses convolution with two kernels to determine the gradient in both the x and y directions. This lab focuses on utilizing CUDA to parallelize the Sobel filter implementation for efficient processing of images.
-
+## Experiment Details:  
+  The Sobel operator is a popular edge detection method that computes the gradient of the image intensity at each pixel. It uses convolution with two kernels to determine the gradient in both the x and y directions. This lab focuses on utilizing CUDA to parallelize       the Sobel filter implementation for efficient processing of images.
+  
 Code Overview: You will work with the provided CUDA implementation of the Sobel edge detection filter. The code reads an input image, applies the Sobel filter in parallel on the GPU, and writes the result to an output image.
+
+## AIM:
+To Implement the Sobel edge detection filter using CUDA to enhance the performance of image processing tasks.
+
 ## EQUIPMENTS REQUIRED:
-Hardware – PCs with NVIDIA GPU & CUDA NVCC
-Google Colab with NVCC Compiler
-CUDA Toolkit and OpenCV installed.
-A sample image for testing.
+- Hardware – PCs with NVIDIA GPU & CUDA NVCC
+- Google Colab with NVCC Compiler
+- CUDA Toolkit and OpenCV installed.
+- A sample image for testing.
 
 ## PROCEDURE:
 Tasks: 
@@ -248,12 +251,3 @@ Thus the program has been executed by using CUDA to perform Sobel Edge Detection
 - Answers to experimental questions.
 
 ---
-
-# Tools Required
-
-- CUDA Toolkit
-- NVIDIA GPU
-- OpenCV Library
-- C++ Compiler
-- Visual Studio / VS Code / Google Colab
-
