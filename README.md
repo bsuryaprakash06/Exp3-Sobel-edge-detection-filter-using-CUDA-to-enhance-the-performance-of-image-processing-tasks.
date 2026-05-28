@@ -54,55 +54,32 @@ Discuss the differences in execution time and output quality.
 
 using namespace cv;
 
-__constant__ int Gx[3][3] = {
-    {-1, 0, 1},
-    {-2, 0, 2},
-    {-1, 0, 1}
-};
-
-__constant__ int Gy[3][3] = {
-    {1, 2, 1},
-    {0, 0, 0},
-    {-1, -2, -1}
-};
-
-__global__ void sobelFilter(unsigned char *srcImage,
-                            unsigned char *dstImage,
-                            unsigned int width,
-                            unsigned int height) {
+__global__ void sobelFilter(unsigned char *srcImage, unsigned char *dstImage,
+                            unsigned int width, unsigned int height) {
 
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
 
-    if (x >= 1 && x < width - 1 &&
-        y >= 1 && y < height - 1) {
+    if (x >= 1 && x < width-1 && y >= 1 && y < height-1) {
+
+        int Gx[3][3] = {{-1,0,1},{-2,0,2},{-1,0,1}};
+        int Gy[3][3] = {{1,2,1},{0,0,0},{-1,-2,-1}};
 
         int sumX = 0;
         int sumY = 0;
 
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-
-                unsigned char pixel =
-                    srcImage[(y + i) * width + (x + j)];
-
-                sumX += pixel * Gx[i + 1][j + 1];
-                sumY += pixel * Gy[i + 1][j + 1];
+        for(int i=-1;i<=1;i++){
+            for(int j=-1;j<=1;j++){
+                unsigned char pixel = srcImage[(y+i)*width + (x+j)];
+                sumX += pixel * Gx[i+1][j+1];
+                sumY += pixel * Gy[i+1][j+1];
             }
         }
 
-        float magnitude =
-            sqrtf((float)(sumX * sumX + sumY * sumY));
+        int magnitude = sqrtf(sumX*sumX + sumY*sumY);
+        magnitude = min(max(magnitude,0),255);
 
-        magnitude = min(max((int)magnitude, 0), 255);
-
-        dstImage[y * width + x] =
-            (unsigned char)magnitude;
-    }
-
-    else if (x < width && y < height) {
-
-        dstImage[y * width + x] = 0;
+        dstImage[y*width + x] = (unsigned char)magnitude;
     }
 }
 
